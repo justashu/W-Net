@@ -14,7 +14,7 @@ class Config:
         #data configure
         self.pascal = "../VOC2012/JPEGImages"
         self.bsds = "../BSR/BSDS500/data/images/"
-        self.imagelist = "ImageSets/Segmentation/train.txt"
+        self.imagelist = "ImageSets/Segmentation/train.txt" ## Now we don't require the txt file. I modified it to directly input images from the given directory
         self.BatchSize = 6
         self.Shuffle = True
         self.LoadThread = 4
