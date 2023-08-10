@@ -24,17 +24,19 @@ class DataLoader():
         train_image_path = os.path.join(datapath,mode)
         file_list = []
         if(mode != "train"):
-            train_image_regex = os.path.join(train_image_path, '*.jpg')
-            file_list = glob.glob(train_image_regex)
+            test_image_folder = '/content/drive/MyDrive/DexiNed/opt/dataset/BIPED/edges/imgs/train/rgbr/real'
+            # Get a list of all image files in the folder
+            image_files = [file for file in os.listdir(test_image_folder) if file.lower().endswith(('.jpg', '.jpeg', '.png', '.bmp'))]
+            image_folder = test_image_folder
         #find all the images
         else:
             train_image_folder = '/content/drive/MyDrive/DexiNed/opt/dataset/BIPED/edges/imgs/train/rgbr/real'
             # Get a list of all image files in the folder
             image_files = [file for file in os.listdir(train_image_folder) if file.lower().endswith(('.jpg', '.jpeg', '.png', '.bmp'))]
-  
+            image_folder = train_image_folder
         # Load the images
         for file_name in image_files:
-            file_path = os.path.join(train_image_folder, file_name)
+            file_path = os.path.join(image_folder, file_name)
             with Image.open(file_path) as image:
                 if image.mode != "RGB":
                     image = image.convert("RGB")
