@@ -28,16 +28,18 @@ class DataLoader():
             file_list = glob.glob(train_image_regex)
         #find all the images
         else:
-            train_list_file = os.path.join("../VOC2012",config.imagelist)
-            with open(train_list_file) as f:
-                for line in f.readlines():
-                    file_list.append(os.path.join(train_image_path,line[0:-1]+".jpg"))
-        #load the images
-        for file_name in file_list:
-            with Image.open(file_name) as image:
+            train_image_folder = '/content/drive/MyDrive/DexiNed/opt/dataset/BIPED/edges/imgs/train/rgbr/real'
+            # Get a list of all image files in the folder
+            image_files = [file for file in os.listdir(train_image_folder) if file.lower().endswith(('.jpg', '.jpeg', '.png', '.bmp'))]
+  
+        # Load the images
+        for file_name in image_files:
+            file_path = os.path.join(train_image_folder, file_name)
+            with Image.open(file_path) as image:
                 if image.mode != "RGB":
                     image = image.convert("RGB")
-                self.raw_data.append(np.array(image.resize((config.inputsize[0],config.inputsize[1]),Image.BILINEAR)))
+                self.raw_data.append(np.array(image.resize((config.inputsize[0], config.inputsize[1]), Image.BILINEAR)))
+
         #resize and align
         self.scale()
         #normalize
